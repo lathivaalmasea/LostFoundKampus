@@ -9,7 +9,6 @@ package Model.Barang;
  * @author Ivaa
  */
 public class ModelBarang {
-    public class ModelBarang {
 
     private int id;
     private String namaBarang;

@@ -4,10 +4,20 @@
  */
 package Model.Barang;
 
+import java.util.List;
 /**
  *
  * @author Ivaa
  */
 public interface InterfaceDAOBarang {
     
+    public void insert(ModelBarang barang);
+
+    public void update(ModelBarang barang);
+
+    public void delete(int id);
+
+    public List<ModelBarang> getAll();
+
+    public List<ModelBarang> search(String keyword);
 }

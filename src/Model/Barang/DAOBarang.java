@@ -4,10 +4,172 @@
  */
 package Model.Barang;
 
+import Model.DatabaseConnection;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author Ivaa
  */
-public class DAOBarang {
-    
+public class DAOBarang implements InterfaceDAOBarang {
+    Connection connection;
+
+    public DAOBarang(){
+        connection = DatabaseConnection.getConnection();
+    }
+
+    @Override
+    public void insert(ModelBarang barang) {
+
+        try {
+            String query = "INSERT INTO barang (nama_barang, kategori, "
+                    + "deskripsi, lokasi, status, tanggal) "
+                    + "VALUES (?,?,?,?,?,?)";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, barang.getNamaBarang());
+            ps.setString(2, barang.getKategori());
+            ps.setString(3, barang.getDeskripsi());
+            ps.setString(4, barang.getLokasi());
+            ps.setString(5, barang.getStatus());
+            ps.setString(6, barang.getTanggal());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void update(ModelBarang barang) {
+        try {
+            String query = "UPDATE barang SET nama_barang=?, kategori=?,"
+                    + "deskripsi=?, lokasi=?, status=?, tanggal=? WHERE id=?";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, barang.getNamaBarang());
+            ps.setString(2, barang.getKategori());
+            ps.setString(3, barang.getDeskripsi());
+            ps.setString(4, barang.getLokasi());
+            ps.setString(5, barang.getStatus());
+            ps.setString(6, barang.getTanggal());
+            ps.setInt(7, barang.getId());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        try {
+            String query = "DELETE FROM barang WHERE id=?";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<ModelBarang> getAll() {
+        List<ModelBarang> list = new ArrayList<>();
+        try {
+            Statement st = connection.createStatement();
+            String query = "SELECT * FROM barang";
+            ResultSet rs = st.executeQuery(query);
+
+            while(rs.next()){
+                ModelBarang barang = new ModelBarang();
+                barang.setId(
+                        rs.getInt("id")
+                );
+
+                barang.setNamaBarang(
+                        rs.getString("nama_barang")
+                );
+
+                barang.setKategori(
+                        rs.getString("kategori")
+                );
+
+                barang.setDeskripsi(
+                        rs.getString("deskripsi")
+                );
+
+                barang.setLokasi(
+                        rs.getString("lokasi")
+                );
+
+                barang.setStatus(
+                        rs.getString("status")
+                );
+
+                barang.setTanggal(
+                        rs.getString("tanggal")
+                );
+
+                list.add(barang);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
+    @Override
+    public List<ModelBarang> search(String keyword) {
+        List<ModelBarang> list = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM barang WHERE nama_barang LIKE ? "
+                    + "OR kategori LIKE ? OR lokasi LIKE ?";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            String cari = "%" + keyword + "%";
+            ps.setString(1,cari);
+            ps.setString(2,cari);
+            ps.setString(3,cari);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                ModelBarang barang = new ModelBarang();
+                barang.setId(
+                        rs.getInt("id")
+                );
+
+                barang.setNamaBarang(
+                        rs.getString("nama_barang")
+                );
+
+                barang.setKategori(
+                        rs.getString("kategori")
+                );
+
+                barang.setDeskripsi(
+                        rs.getString("deskripsi")
+                );
+
+                barang.setLokasi(
+                        rs.getString("lokasi")
+                );
+
+                barang.setStatus(
+                        rs.getString("status")
+                );
+
+                barang.setTanggal(
+                        rs.getString("tanggal")
+                );
+
+                list.add(barang);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
 }
