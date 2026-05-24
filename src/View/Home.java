@@ -11,7 +11,6 @@ package View;
 
 import View.User.Login;
 import View.User.Register;
-
 import javax.swing.*;
 import java.awt.*;
 

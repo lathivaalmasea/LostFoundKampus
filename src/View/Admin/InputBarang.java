@@ -12,7 +12,7 @@ import java.awt.*;
  *
  * @author Ivaa
  */
-public class InputBarang {
+public class InputBarang extends JFrame {
     JTextField txtNamaBarang;
     JTextField txtKategori;
     JTextArea txtDeskripsi;
@@ -104,7 +104,7 @@ public class InputBarang {
         btnReset.addActionListener(e -> resetForm());
     }
     
-    private void SimpanData() {
+    private void simpanData() {
         ModelBarang barang = new ModelBarang();
 
         barang.setNamaBarang(

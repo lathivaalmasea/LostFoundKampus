@@ -107,7 +107,7 @@ public class ViewBarang extends JFrame {
         
         int id = Integer.parseInt(tableBarang.getValueAt(row, 0).toString());
         
-        ControllerBarang controller = new ContorllerBarang();
+        ControllerBarang controller = new ControllerBarang();
         controller.delete(id);
         JOptionPane.showMessageDialog(this, "Data berhasil dihapus");
         

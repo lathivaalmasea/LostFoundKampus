@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-import view.ViewLogin;
+
+import View.Home;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 /**
@@ -22,7 +23,7 @@ public class Main {
 
         // Jalankan GUI di Event Dispatch Thread (EDT) — aturan baku Swing
         SwingUtilities.invokeLater(() -> {
-            new ViewLogin(); // Buka jendela Login pertama kali
+            new Home().setVisible(true); // Buka jendela Login pertama kali
         });
     }
 }

@@ -90,8 +90,7 @@ public class DashboardUser extends JFrame {
         btnTambahBarang.addActionListener(
                 e -> {
 
-                    new InputBarang()
-                            .setVisible(true);
+                    new InputBarang().setVisible(true);
                 }
         );
 
