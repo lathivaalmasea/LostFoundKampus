@@ -8,6 +8,22 @@ package Controller;
  *
  * @author karina
  */
+
+import Model.User.DAOUser;
+import Model.User.ModelUser;
+
 public class ControllerUser {
-    
+
+    DAOUser daoUser;
+
+    public ControllerUser(){
+
+        daoUser =
+                new DAOUser();
+    }
+
+    public void insert(ModelUser user){
+
+        daoUser.insert(user);
+    }
 }

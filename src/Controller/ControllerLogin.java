@@ -8,6 +8,33 @@ package Controller;
  *
  * @author karina
  */
+
+import Model.User.DAOUser;
+import Model.User.ModelUser;
+
 public class ControllerLogin {
-    
+
+    DAOUser daoUser;
+
+    public static ModelUser userLogin;
+
+    public ControllerLogin(){
+
+        daoUser =
+                new DAOUser();
+    }
+
+    public ModelUser login(
+            String username,
+            String password
+    ){
+
+        userLogin =
+                daoUser.login(
+                        username,
+                        password
+                );
+
+        return userLogin;
+    }
 }

@@ -8,6 +8,17 @@ package Model.User;
  *
  * @author Ivaa
  */
+
+import java.util.List;
+
 public interface InterfaceDAOUser {
-    
+
+    public void insert(ModelUser user);
+
+    public ModelUser login(
+            String username,
+            String password
+    );
+
+    public List<ModelUser> getAll();
 }

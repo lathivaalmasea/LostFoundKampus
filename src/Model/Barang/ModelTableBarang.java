@@ -8,6 +8,6 @@ package Model.Barang;
  *
  * @author Ivaa
  */
-public class ModelTableBarang {
-    
-}
+
+
+
