@@ -7,19 +7,24 @@
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/Model/Barang/ModelBarang.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/Model/Barang/DAOBarang.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/View/Admin/DashboardAdmin.java</file>
+            <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/View/Home.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/Controller/ControllerUser.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/Model/DatabaseConnection.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/View/Admin/InputBarang.java</file>
+            <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/View/User/Register.java</file>
+            <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/View/User/DashboardUser.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/View/Admin/ViewBarang.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/Main.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/Model/User/DAOUser.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/Model/User/ModelTableUser.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/Model/User/InterfaceDAOUser.java</file>
+            <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/View/User/Login.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/Model/Barang/InterfaceDAOBarang.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/View/Admin/EditBarang.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/Controller/ControllerLogin.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/Controller/ControllerBarang.java</file>
             <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/Model/Barang/ModelTableBarang.java</file>
+            <file>file:/C:/Users/lathi/OneDrive/Dokumen/NetBeansProjects/LostFoundKampus/src/View/User/LihatBarang.java</file>
         </group>
     </open-files>
 </project-private>

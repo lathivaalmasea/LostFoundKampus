@@ -29,8 +29,7 @@ public class DashboardUser extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        JLabel title =
-                new JLabel("DASHBOARD USER");
+        JLabel title = new JLabel("DASHBOARD USER");
 
         title.setFont(
                 new Font(

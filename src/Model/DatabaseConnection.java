@@ -20,10 +20,9 @@ public class DatabaseConnection {
     public static Connection getConnection(){
 
         try {
-
-            String url =
-                    "jdbc:mysql://localhost/lostfoundkampus";
-
+            String jdbc_driver = "com.mysql.cj.jdbc.Driver";
+            String nama_db = "lostfoundkampus";
+            String url = "jdbc:mysql://localhost:3306/" + nama_db;
             String user = "root";
             String pass = "";
 
