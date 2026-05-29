@@ -32,7 +32,9 @@ public class Login extends JFrame {
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
+        panel.setBackground(new Color(236,240,241));
 
+        
         JLabel title = new JLabel("LOGIN");
         title.setFont(
                 new Font(
@@ -42,7 +44,14 @@ public class Login extends JFrame {
                 )
         );
 
-        title.setBounds(150,20,200,30);
+        title.setForeground(new Color(41,128,185));
+        
+        title.setBounds(
+                140,
+                20,
+                200,
+                30
+        );
 
         JLabel lblUsername =
                 new JLabel("Username");
@@ -65,12 +74,29 @@ public class Login extends JFrame {
 
         btnLogin = new JButton("LOGIN");
 
-        btnLogin.setBounds(70,180,100,35);
+        btnLogin.setBackground(new Color(52,152,219));
+        btnLogin.setForeground(Color.WHITE);
+        btnLogin.setFocusPainted(false);
 
-        btnRegister =
-                new JButton("REGISTER");
+        btnRegister = new JButton("REGISTER");
 
-        btnRegister.setBounds(200,180,120,35);
+        btnRegister.setBackground(new Color(46,204,113));
+        btnRegister.setForeground(Color.WHITE);
+        btnRegister.setFocusPainted(false);
+        
+        btnLogin.setBounds(
+                70,
+                180,
+                120,
+                40
+        );
+
+        btnRegister.setBounds(
+                210,
+                180,
+                120,
+                40
+        );
 
         panel.add(title);
         panel.add(lblUsername);
@@ -99,20 +125,11 @@ public class Login extends JFrame {
 
     private void login(){
 
-        String username =
-                txtUsername.getText();
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
 
-        String password =
-                txtPassword.getText();
-
-        ControllerLogin controller =
-                new ControllerLogin();
-
-        ModelUser user =
-                controller.login(
-                        username,
-                        password
-                );
+        ControllerLogin controller = new ControllerLogin();
+        ModelUser user = controller.login(username, password);
 
         if(user != null){
 

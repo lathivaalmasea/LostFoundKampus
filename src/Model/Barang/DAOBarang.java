@@ -24,8 +24,8 @@ public class DAOBarang implements InterfaceDAOBarang {
 
         try {
             String query = "INSERT INTO barang (nama_barang, kategori, "
-                    + "deskripsi, lokasi, status, tanggal) "
-                    + "VALUES (?,?,?,?,?,?)";
+                    + "deskripsi, lokasi, status, status_claim, user_id) "
+                    + "VALUES (?,?,?,?,?,?,?)";
 
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, barang.getNamaBarang());
@@ -33,7 +33,8 @@ public class DAOBarang implements InterfaceDAOBarang {
             ps.setString(3, barang.getDeskripsi());
             ps.setString(4, barang.getLokasi());
             ps.setString(5, barang.getStatus());
-            ps.setString(6, barang.getTanggal());
+            ps.setString(6, barang.getStatusClaim());
+            ps.setInt(7, barang.getUserId());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -44,7 +45,8 @@ public class DAOBarang implements InterfaceDAOBarang {
     public void update(ModelBarang barang) {
         try {
             String query = "UPDATE barang SET nama_barang=?, kategori=?,"
-                    + "deskripsi=?, lokasi=?, status=?, tanggal=? WHERE id=?";
+                    + "deskripsi=?, lokasi=?, status=?, status_claim=? "
+                    + "WHERE id=?";
 
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, barang.getNamaBarang());
@@ -52,7 +54,7 @@ public class DAOBarang implements InterfaceDAOBarang {
             ps.setString(3, barang.getDeskripsi());
             ps.setString(4, barang.getLokasi());
             ps.setString(5, barang.getStatus());
-            ps.setString(6, barang.getTanggal());
+            ps.setString(6, barang.getStatusClaim());
             ps.setInt(7, barang.getId());
             ps.executeUpdate();
         } catch (Exception e) {
@@ -78,7 +80,7 @@ public class DAOBarang implements InterfaceDAOBarang {
         List<ModelBarang> list = new ArrayList<>();
         try {
             Statement st = connection.createStatement();
-            String query = "SELECT * FROM barang";
+            String query = "SELECT * FROM barang ORDER BY id DESC";
             ResultSet rs = st.executeQuery(query);
 
             while(rs.next()){
@@ -106,9 +108,13 @@ public class DAOBarang implements InterfaceDAOBarang {
                 barang.setStatus(
                         rs.getString("status")
                 );
+                
+                barang.setStatusClaim(
+                        rs.getString("status_claim")
+                );
 
-                barang.setTanggal(
-                        rs.getString("tanggal")
+                barang.setCreatedAt(
+                    rs.getString("created_at")
                 );
 
                 list.add(barang);
@@ -161,15 +167,50 @@ public class DAOBarang implements InterfaceDAOBarang {
                         rs.getString("status")
                 );
 
-                barang.setTanggal(
-                        rs.getString("tanggal")
-                );
-
                 list.add(barang);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return list;
+    }
+    
+    @Override
+    public ModelBarang getById(int id) {
+
+        ModelBarang barang = null;
+
+        try {
+
+            String query =
+                    "SELECT * FROM barang WHERE id=?";
+
+            PreparedStatement ps =
+                    connection.prepareStatement(query);
+
+            ps.setInt(1,id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+
+                barang = new ModelBarang();
+                
+                barang.setId(rs.getInt("id"));
+                barang.setNamaBarang(rs.getString("nama_barang"));
+                barang.setKategori(rs.getString("kategori"));
+                barang.setDeskripsi(rs.getString("deskripsi"));
+                barang.setLokasi(rs.getString("lokasi"));
+                barang.setStatus(rs.getString("status"));
+                barang.setStatusClaim(rs.getString("status_claim"));
+                barang.setUserId(rs.getInt("user_id"));
+                barang.setCreatedAt(rs.getString("created_at"));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return barang;
     }
 }

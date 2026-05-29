@@ -23,7 +23,8 @@ public class ModelTableBarang extends AbstractTableModel {
             "Kategori",
             "Lokasi",
             "Status",
-            "Tanggal"
+            "Claim",
+            "Waktu"
     };
 
     @Override
@@ -49,7 +50,8 @@ public class ModelTableBarang extends AbstractTableModel {
             case 2: return listBarang.get(rowIndex).getKategori();
             case 3: return listBarang.get(rowIndex).getLokasi();
             case 4: return listBarang.get(rowIndex).getStatus();
-            case 5: return listBarang.get(rowIndex).getTanggal();
+            case 5: return listBarang.get(rowIndex).getStatusClaim();
+            case 6: return listBarang.get(rowIndex).getCreatedAt();
             default: return null;
         }
     } 

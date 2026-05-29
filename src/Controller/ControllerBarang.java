@@ -36,4 +36,8 @@ public class ControllerBarang {
     public List<ModelBarang> search(String keyword){
         return daoBarang.search(keyword);
     }
+    
+    public ModelBarang getById(int id){
+        return daoBarang.getById(id);
+    }
 }

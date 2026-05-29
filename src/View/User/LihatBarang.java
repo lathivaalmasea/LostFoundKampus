@@ -139,6 +139,8 @@ public class LihatBarang extends JFrame {
                 new ModelTableBarang(list);
 
         tableBarang.setModel(model);
+        tableBarang.getTableHeader().setBackground(new Color(52,152,219));
+        tableBarang.getTableHeader().setForeground(Color.WHITE);
     }
 
     private void searchData(){

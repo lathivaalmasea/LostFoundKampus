@@ -16,7 +16,9 @@ public class ModelBarang {
     private String deskripsi;
     private String lokasi;
     private String status;
-    private String tanggal;
+    private String statusClaim;
+    private int userId;
+    private String createdAt;
 
     public int getId() {
         return id;
@@ -66,11 +68,27 @@ public class ModelBarang {
         this.status = status;
     }
 
-    public String getTanggal() {
-        return tanggal;
+    public String getStatusClaim() {
+        return statusClaim;
     }
 
-    public void setTanggal(String tanggal) {
-        this.tanggal = tanggal;
+    public void setStatusClaim(String statusClaim) {
+        this.statusClaim = statusClaim;
+    }
+    
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }

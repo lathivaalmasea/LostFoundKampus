@@ -48,6 +48,9 @@ public class ViewBarang extends JFrame {
         btnDelete.setBounds(560,70,100,30);
 
         tableBarang = new JTable();
+        tableBarang.getTableHeader().setBackground(new Color(52,152,219));
+        tableBarang.setRowHeight(25);
+        tableBarang.getTableHeader().setForeground(Color.WHITE);
 
         JScrollPane scroll = new JScrollPane(tableBarang);
 
@@ -80,6 +83,12 @@ public class ViewBarang extends JFrame {
                         searchData();
                     }
                 }
+        );
+        txtSearch.setBorder(
+        BorderFactory.createLineBorder(
+        new Color(52,152,219),
+        2
+            )
         );
     }
     
