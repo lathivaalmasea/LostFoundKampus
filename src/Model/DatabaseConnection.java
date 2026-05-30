@@ -16,6 +16,12 @@ public class DatabaseConnection {
 
     private static Connection connection;
 
+    public DatabaseConnection() {
+        if (connection == null) {
+            connection = getConnection();
+        }
+    }
+
     public static Connection getConnection() {
 
         try {
@@ -28,12 +34,11 @@ public class DatabaseConnection {
 
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 
-            connection = DriverManager.getConnection(url, user, pass);
+            return DriverManager.getConnection(url, user, pass);
 
         } catch (Exception e) {
             System.out.println("Koneksi gagal : " + e.getMessage());
         }
-
-        return connection;
+        return null;
     }
 }

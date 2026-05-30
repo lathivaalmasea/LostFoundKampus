@@ -34,9 +34,7 @@ public class ControllerLogin {
         this.daoUser = daoUser;
     }
 
-    public ModelUser login(
-            String username,
-            String password) {
+    private ModelUser login(String username, String password) {
         String safeUsername = username == null ? "" : username.trim();
         if (safeUsername.isEmpty() || password == null || password.isEmpty()) {
             return null;
