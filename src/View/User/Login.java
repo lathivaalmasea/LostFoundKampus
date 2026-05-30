@@ -9,155 +9,116 @@ package View.User;
  * @author Ivaa
  */
 import Controller.ControllerLogin;
-import Model.User.ModelUser;
+import Controller.LoginViewContract;
 import View.Admin.DashboardAdmin;
+import View.Component.AppButtonFactory;
+import View.Component.AppTheme;
+import View.Component.LabeledInput;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements LoginViewContract {
 
-    JTextField txtUsername;
-    JPasswordField txtPassword;
+    private final LabeledInput usernameInput;
+    private final LabeledInput passwordInput;
+    private final transient ControllerLogin controller;
 
-    JButton btnLogin;
-    JButton btnRegister;
+    private final JButton btnLogin;
+    private final JButton btnRegister;
 
-    public Login(){
+    public Login() {
+
+        this.controller = new ControllerLogin(this);
 
         setTitle("Login");
-        setSize(400,300);
+        setSize(400, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-        panel.setBackground(new Color(236,240,241));
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(AppTheme.BACKGROUND);
 
-        
+        JPanel form = new JPanel(new GridBagLayout());
+        form.setOpaque(false);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(8, 14, 8, 14);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.weightx = 1.0;
+
         JLabel title = new JLabel("LOGIN");
-        title.setFont(
-                new Font(
-                        "Segoe UI",
-                        Font.BOLD,
-                        22
-                )
-        );
+        title.setFont(AppTheme.TITLE_FONT);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setForeground(new Color(41, 128, 185));
 
-        title.setForeground(new Color(41,128,185));
-        
-        title.setBounds(
-                140,
-                20,
-                200,
-                30
-        );
+        usernameInput = LabeledInput.text("Username", 16);
+        passwordInput = LabeledInput.password("Password", 16);
 
-        JLabel lblUsername =
-                new JLabel("Username");
+        btnLogin = AppButtonFactory.primary("LOGIN");
+        btnRegister = AppButtonFactory.success("REGISTER");
 
-        lblUsername.setBounds(50,80,100,25);
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 12, 0));
+        buttonPanel.setOpaque(false);
+        buttonPanel.add(btnLogin);
+        buttonPanel.add(btnRegister);
 
-        txtUsername = new JTextField();
+        gbc.gridy = 0;
+        form.add(title, gbc);
 
-        txtUsername.setBounds(150,80,180,25);
+        gbc.gridy = 1;
+        form.add(usernameInput, gbc);
 
-        JLabel lblPassword =
-                new JLabel("Password");
+        gbc.gridy = 2;
+        form.add(passwordInput, gbc);
 
-        lblPassword.setBounds(50,120,100,25);
+        gbc.gridy = 3;
+        gbc.insets = new Insets(14, 14, 8, 14);
+        form.add(buttonPanel, gbc);
 
-        txtPassword =
-                new JPasswordField();
-
-        txtPassword.setBounds(150,120,180,25);
-
-        btnLogin = new JButton("LOGIN");
-
-        btnLogin.setBackground(new Color(52,152,219));
-        btnLogin.setForeground(Color.WHITE);
-        btnLogin.setFocusPainted(false);
-
-        btnRegister = new JButton("REGISTER");
-
-        btnRegister.setBackground(new Color(46,204,113));
-        btnRegister.setForeground(Color.WHITE);
-        btnRegister.setFocusPainted(false);
-        
-        btnLogin.setBounds(
-                70,
-                180,
-                120,
-                40
-        );
-
-        btnRegister.setBounds(
-                210,
-                180,
-                120,
-                40
-        );
-
-        panel.add(title);
-        panel.add(lblUsername);
-        panel.add(txtUsername);
-        panel.add(lblPassword);
-        panel.add(txtPassword);
-        panel.add(btnLogin);
-        panel.add(btnRegister);
-
+        panel.add(form, BorderLayout.CENTER);
         add(panel);
 
-        btnLogin.addActionListener(
-                e -> login()
-        );
-
-        btnRegister.addActionListener(
-                e -> {
-
-                    dispose();
-
-                    new Register()
-                            .setVisible(true);
-                }
-        );
+        btnLogin.addActionListener(loginEventHandler());
+        btnRegister.addActionListener(registerEventHandler());
     }
 
-    private void login(){
-
-        String username = txtUsername.getText();
-        String password = txtPassword.getText();
-
-        ControllerLogin controller = new ControllerLogin();
-        ModelUser user = controller.login(username, password);
-
-        if(user != null){
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Login berhasil"
+    private ActionListener loginEventHandler() {
+        return e -> {
+            this.controller.handleLogin(
+                usernameInput.getText(),
+                passwordInput.getPassword()
             );
+        };
+    }
 
-            dispose();
+    private static ActionListener registerEventHandler() {
+        return e -> {
+            new Register().setVisible(true);
+        };
+    }
 
-            if(user.getRole()
-                    .equals("admin")){
+    @Override
+    public void showInfoMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
 
-                new DashboardAdmin()
-                        .setVisible(true);
+    @Override
+    public void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
 
-            }else{
+    @Override
+    public void openAdminDashboard() {
+        dispose();
+        new DashboardAdmin().setVisible(true);
+    }
 
-                new DashboardUser()
-                        .setVisible(true);
-            }
-
-        }else{
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Username / Password salah"
-            );
-        }
+    @Override
+    public void openUserDashboard() {
+        dispose();
+        new DashboardUser().setVisible(true);
     }
 }
