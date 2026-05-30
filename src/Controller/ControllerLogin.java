@@ -9,69 +9,81 @@ package Controller;
  * @author karina
  */
 
-import Model.User.AuthService;
 import Model.User.DAOUser;
 import Model.User.ModelUser;
-import Model.User.UserAuthService;
 import java.util.Arrays;
-import java.util.Optional;
 
 public class ControllerLogin {
 
-        private final LoginViewContract view;
-        private final AuthService authService;
+    private final LoginViewContract view;
+    private final DAOUser daoUser;
 
-        public ControllerLogin() {
-                this(null, new UserAuthService(new DAOUser()));
+    // Usage: used for testing, without view contract and with a mock DAOUser
+    public ControllerLogin() {
+        this(null, new DAOUser());
+    }
+
+    // Usage: used by the login view, passing itself as the view contract
+    public ControllerLogin(LoginViewContract view) {
+        this(view, new DAOUser());
+    }
+
+    // Usage: used for testing, passing both view contract and mock DAOUser
+    public ControllerLogin(LoginViewContract view, DAOUser daoUser) {
+        this.view = view;
+        this.daoUser = daoUser;
+    }
+
+    public ModelUser login(
+            String username,
+            String password) {
+        String safeUsername = username == null ? "" : username.trim();
+        if (safeUsername.isEmpty() || password == null || password.isEmpty()) {
+            return null;
         }
 
-        public ControllerLogin(LoginViewContract view) {
-                this(view, new UserAuthService(new DAOUser()));
+        ModelUser user = daoUser.getByUsername(safeUsername);
+        if (user == null) {
+            return null;
         }
 
-        public ControllerLogin(LoginViewContract view, AuthService authService) {
-                this.view = view;
-                this.authService = authService;
+        if (!password.equals(user.getPassword())) {
+            return null;
         }
 
-        public ModelUser login(
-                        String username,
-                        String password) {
-                Optional<ModelUser> user = authService.authenticate(username, password);
-                return user.orElse(null);
+        return user;
+    }
+
+    public void handleLogin(String username, char[] passwordChars) {
+        if (view == null) {
+            return;
         }
 
-        public void handleLogin(String username, char[] passwordChars) {
-                if (view == null) {
-                        return;
-                }
+        String password = new String(passwordChars);
 
-                String safeUsername = username == null ? "" : username.trim();
-                String password = new String(passwordChars);
+        try {
+            if ((username == null ? "" : username.trim()).isEmpty() || password.isEmpty()) {
+                view.showErrorMessage("Username dan password wajib diisi");
+                return;
+            }
 
-                try {
-                        if (safeUsername.isEmpty() || password.isEmpty()) {
-                                view.showErrorMessage("Username dan password wajib diisi");
-                                return;
-                        }
+            ModelUser user = login(username, password);
 
-                        Optional<ModelUser> userOpt = authService.authenticate(safeUsername, password);
+            if (user == null) {
+                view.showErrorMessage("Username / Password salah");
+                return;
+            }
 
-                        if (userOpt.isEmpty()) {
-                                view.showErrorMessage("Username / Password salah");
-                                return;
-                        }
+            view.showInfoMessage("Login berhasil");
 
-                        view.showInfoMessage("Login berhasil");
+            if ("admin".equalsIgnoreCase(user.getRole())) {
+                view.openAdminDashboard();
+            } else {
+                view.openUserDashboard();
+            }
 
-                        if ("admin".equalsIgnoreCase(userOpt.get().getRole())) {
-                                view.openAdminDashboard();
-                        } else {
-                                view.openUserDashboard();
-                        }
-
-                } finally {
-                        Arrays.fill(passwordChars, '\0');
-                }
+        } finally {
+            Arrays.fill(passwordChars, '\0');
         }
+    }
 }
